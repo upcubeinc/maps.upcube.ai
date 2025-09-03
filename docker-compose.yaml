@@ -27,7 +27,7 @@ services:
     volumes:
       - nextcloud_data:/var/www/html
     ports:
-      - "8083:80"   
+      - "8093:80"   
     depends_on:
       - db
 
