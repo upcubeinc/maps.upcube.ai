@@ -27,7 +27,7 @@ services:
     volumes:
       - nextcloud_data:/var/www/html
     ports:
-      - "8086:80"   # binds container port 80 → host port 8086
+      - "8083:80"   
     depends_on:
       - db
 
