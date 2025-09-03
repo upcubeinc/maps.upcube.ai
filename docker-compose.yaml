@@ -1,3 +1,5 @@
+version: "3.8"
+
 services:
   db:
     image: mariadb:10.11
@@ -11,7 +13,7 @@ services:
       - db_data:/var/lib/mysql
 
   app:
-    image: nextcloud:fpm
+    image: nextcloud:apache
     restart: always
     environment:
       MYSQL_HOST: db
@@ -23,13 +25,14 @@ services:
     volumes:
       - nextcloud_data:/var/www/html
     ports:
-      - "8093:80"  
+      - "8093:80"   # maps app container’s port 80 → host port 8093
     depends_on:
       - db
 
 volumes:
   db_data:
   nextcloud_data:
+
 
 
 
