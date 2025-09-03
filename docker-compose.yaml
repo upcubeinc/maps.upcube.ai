@@ -26,6 +26,8 @@ services:
       NEXTCLOUD_ADMIN_PASSWORD: adminpass
     volumes:
       - nextcloud_data:/var/www/html
+    expose:
+      - "80"
     depends_on:
       - db
 
@@ -34,18 +36,19 @@ services:
     container_name: collabora
     restart: always
     environment:
-      # must match your Nextcloud domain (escape dots with \\.)
+      # IMPORTANT: must match your Nextcloud domain, escape dots
       domain=maps\\.upcube\\.ai
       username=admin
       password=collaborapass
     cap_add:
       - MKNOD
     expose:
-      - "9980"   # no ports on host, Coolify/Traefik will handle routing
+      - "9980"
     depends_on:
       - app
 
 volumes:
   db_data:
   nextcloud_data:
+
 
