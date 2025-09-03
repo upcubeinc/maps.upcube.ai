@@ -31,25 +31,10 @@ services:
     depends_on:
       - db
 
-  collabora:
-    image: collabora/code:latest
-    container_name: collabora
-    restart: always
-    environment:
-      # IMPORTANT: this must match your Nextcloud domain
-      domain=upcube\\.ai
-      username=admin
-      password=collaborapass
-    cap_add:
-      - MKNOD
-    expose:
-      - "9980"
-    depends_on:
-      - app
-
 volumes:
   db_data:
   nextcloud_data:
+
 
 
 
