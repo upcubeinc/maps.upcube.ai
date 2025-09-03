@@ -26,8 +26,8 @@ services:
       NEXTCLOUD_ADMIN_PASSWORD: adminpass
     volumes:
       - nextcloud_data:/var/www/html
-    expose:
-      - "80"
+    ports:
+      - "8086:80"   # binds container port 80 → host port 8086
     depends_on:
       - db
 
