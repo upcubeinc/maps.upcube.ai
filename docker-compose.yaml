@@ -23,7 +23,7 @@ services:
     volumes:
       - nextcloud_data:/var/www/html
     ports:
-      - "8093:80"   # if you want to reach it on http://SERVER_IP:8086
+      - "8093:80"  
     depends_on:
       - db
 
