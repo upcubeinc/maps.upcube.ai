@@ -1,37 +1,37 @@
-version: "3.8"
+version: '3.9'
 
 services:
   db:
     image: mariadb:10.11
     restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpass
-      MYSQL_DATABASE: nextcloud
-      MYSQL_USER: nextcloud
-      MYSQL_PASSWORD: userpass
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW --innodb-file-per-table=1 --skip-innodb-read-only-compressed
     volumes:
-      - db_data:/var/lib/mysql
+      - db_maps:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=maps-root-pass
+      - MYSQL_PASSWORD=maps-pass
+      - MYSQL_DATABASE=nextcloud_maps
+      - MYSQL_USER=nextcloud_maps
 
   app:
-    image: nextcloud:apache
+    build: ./nextcloud
     restart: always
-    environment:
-      MYSQL_HOST: db
-      MYSQL_DATABASE: nextcloud
-      MYSQL_USER: nextcloud
-      MYSQL_PASSWORD: userpass
-      NEXTCLOUD_ADMIN_USER: admin
-      NEXTCLOUD_ADMIN_PASSWORD: adminpass
-    volumes:
-      - nextcloud_data:/var/www/html
-    ports:
-      - "8094:80"   # maps app container’s port 80 → host port 8093
     depends_on:
       - db
+    ports:
+      - "8096:80"   # expose maps instance on port 8096
+    volumes:
+      - nextcloud_maps:/var/www/html
+    environment:
+      - MYSQL_PASSWORD=maps-pass
+      - MYSQL_DATABASE=nextcloud_maps
+      - MYSQL_USER=nextcloud_maps
+      - MYSQL_HOST=db
 
 volumes:
-  db_data:
-  nextcloud_data:
+  db_maps:
+  nextcloud_maps:
+
 
 
 
