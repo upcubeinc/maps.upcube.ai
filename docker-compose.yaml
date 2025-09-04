@@ -14,7 +14,7 @@ services:
       - MYSQL_USER=nextcloud_maps
 
   app:
-    build: ./nextcloud
+    image: nextcloud:latest
     restart: always
     depends_on:
       - db
@@ -31,6 +31,7 @@ services:
 volumes:
   db_maps:
   nextcloud_maps:
+
 
 
 
